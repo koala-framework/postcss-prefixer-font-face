@@ -1,0 +1,17 @@
+{
+  "name": "postcss-prefixer-font-face",
+  "version": "0.0.1",
+  "description": "PostCSS plugin to prefix font-faces",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "prefix",
+    "font-face"
+  ],
+  "author": "Michael Herbst <mherbst@vivid-planet.com>",
+  "license": "MIT",
+  "dependencies": {
+    "postcss": "^5.0.10"
+  }
+}
