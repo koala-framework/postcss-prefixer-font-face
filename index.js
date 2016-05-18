@@ -12,14 +12,16 @@ module.exports = postcss.plugin('postcss-prefixer-font-face', function (opts) {
         /* Font Faces */
         css.walkAtRules(/font-face$/, function (font) {
             font.walkDecls(/font-family/, function (decl) {
-                usedFonts.push(decl.value);
-                decl.value = String(prefix+decl.value);
+                var fontName = decl.value.replace(/['"]+/g, '');
+                usedFonts.push(fontName);
+                decl.value = '\''+String(prefix+fontName)+'\'';
             });
         });
 
         css.walkDecls(/font-family/, function (decl) {
-            if (usedFonts.indexOf(decl.value) > -1) {
-                decl.value = String(prefix + decl.value);
+            var fontName = decl.value.replace(/['"]+/g, '');
+            if (usedFonts.indexOf(fontName) > -1) {
+                decl.value = '\''+String(prefix+fontName)+'\'';
             }
         });
     };
