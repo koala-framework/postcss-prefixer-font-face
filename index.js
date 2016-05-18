@@ -14,15 +14,19 @@ module.exports = postcss.plugin('postcss-prefixer-font-face', function (opts) {
             font.walkDecls(/font-family/, function (decl) {
                 var fontName = decl.value.replace(/['"]+/g, '');
                 usedFonts.push(fontName);
-                decl.value = '\''+String(prefix+fontName)+'\'';
+                decl.value = String(prefix + fontName);
             });
         });
 
         css.walkDecls(/font-family/, function (decl) {
-            var fontName = decl.value.replace(/['"]+/g, '');
-            if (usedFonts.indexOf(fontName) > -1) {
-                decl.value = '\''+String(prefix+fontName)+'\'';
+            var fontNames = decl.value.replace(/['"]+/g, '').split(',');
+            for (var i = 0; i < fontNames.length; i++) {
+                var fontName = fontNames[i].trim();
+                if (usedFonts.indexOf(fontName) > -1) {
+                    fontNames[i] = String(prefix + fontName);
+                }
             }
+            decl.value = fontNames.join(',');
         });
     };
 });
